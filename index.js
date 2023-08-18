@@ -47,7 +47,8 @@ const generateBoard = function(){
     gameboard.appendChild(hangman);
     container.appendChild(gameboard);
     gameboard.appendChild(exit);
-    clear.addEventListener('click',clearBoard);
+    container.appendChild(secretContainer);
+    exit.addEventListener('click',clearBoard);
 };
 //generate secret 
 const generateSecret = function(word){
@@ -59,7 +60,8 @@ const generateSecret = function(word){
         secret.style.height='5px';
         secret.style.width='5px';
         secret.style.padding='5px';
-        gameboard.appendChild(secret);
+        secret.style.flexDirection='row';
+        secretContainer.appendChild(secret);
     }
 };
 const easyRound = function(){
