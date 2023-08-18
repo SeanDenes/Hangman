@@ -80,11 +80,9 @@
 }
 #boardContainer #gameboard #secret{
     display:flex;
+    background-color: red;
 }
 #boardContainer #gameboard #charInput{
     font-size: 40px; 
     width: 50px; 
-}
-#boardContainer #gameboard #secret{
-    padding-bottom: 50px; 
 }

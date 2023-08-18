@@ -1,10 +1,11 @@
+
+
+//initialize html elements 
 const easy = document.getElementById('buttonEasy'); 
 const hard = document.getElementById('buttonHard'); 
 const container = document.getElementById('boardContainer');
-easy.addEventListener('click',easyRound); 
-hard.addEventListener('click',hardRound);
-//needs to be passed easy or hard 
-function generateWord(difficulty){
+//word generator
+const generateWord = function(difficulty){
     if(difficulty === 'easy')
     {
         const wordsEasy = ['ant','apple','banana','boom','car','cap','deer','eagle','fox','gorilla']
@@ -20,84 +21,64 @@ function generateWord(difficulty){
         return wordhard; 
     }
 };
-function easyRound(){
+//generate board
+const generateBoard = function(){
+    const gameboard = document.createElement('div');
+    const secretContainer = document.createElement('div'); 
+    const exit = document.createElement('div');
+    const hangman = document.createElement('pre');
+    const x = "\u2716"
+    const clear = document.getElementById('exit');
+    var hangmanArt = 
+    '    _____\n'+
+    '   |     |\n'+
+    '   |     o\n' +
+    '   |    /|\\\n' + 
+    '   |    / \\\n'+
+    '   |\n'+
+    '  / \\'+
+    '\n\n';
+    hangman.setAttribute('id','hangman'); 
+    gameboard.setAttribute('id',"gameboard");
+    secretContainer.setAttribute('id','secretContainer');
+    exit.setAttribute("id","exit");
+    exit.textContent = x;
+    hangman.textContent = hangmanArt;
+    gameboard.appendChild(hangman);
+    container.appendChild(gameboard);
+    gameboard.appendChild(exit);
+    clear.addEventListener('click',clearBoard);
+};
+//generate secret 
+const generateSecret = function(word){
+    for(var i = 0; i < word.length; i++){
+        const secret = document.createElement('div');
+        //secret.setAttribute('id','secret');
+        //secret.style.display = 'flex';
+        secret.style.backgroundColor= '#eee';
+        secret.style.height='5px';
+        secret.style.width='5px';
+        secret.style.padding='5px';
+        gameboard.appendChild(secret);
+    }
+};
+const easyRound = function(){
     //clear board
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
+    //set indicator for user selection as a border
     easy.style.border = '2px solid black';
-    hard.style.border=null;
-    //gameboard 
-    const gameboard = document.createElement('div');
-    gameboard.setAttribute("id","gameboard");
-    /*
-    gameboard.style.border='2px solid black'; 
-    gameboard.style.position = 'relative';
-    gameboard.style.height = '75vh'; 
-    gameboard.style.width = '100vh';
-    gameboard.style.display='flex';
-    gameboard.style.flexDirection='column';
-    gameboard.style.justifyContent = 'center';
-    gameboard.style.alignItems = 'center';
-    */
-    //container
-    /*
-    container.style.display = 'flex';
-    container.style.justifyContent = 'center';
-    container.style.alignItems = 'center';
-    container.style.height = '100vh';
-    container.style.padding = '20px'; 
-    */
-    container.appendChild(gameboard);
-    //x
-    const exit = document.createElement('div');
-    exit.setAttribute("id","exit");
-    const x = "\u2716"
-    exit.textContent = x;
-    /*
-    exit.style.position = 'absolute';
-    exit.style.top = '0';
-    exit.style.right = '0';
-    exit.style.textAlign= 'center';
-    exit.style.verticalAlign = 'top';
-    exit.style.fontStyle = 'normal';
-    exit.style.backgroundColor = '#eee';
-    exit.style.color= '#888';
-    exit.style.width= '16px';
-    exit.style.height= '16px';
-    exit.style.cursor= 'pointer';
-    */
-    gameboard.appendChild(exit);
-    const clear = document.getElementById('exit');
-    clear.addEventListener('click',clearBoard);
-    //hangmanArt 
-    var hangmanArt = 
-        '    _____\n'+
-        '   |     |\n'+
-        '   |     o\n' +
-        '   |    /|\\\n' + 
-        '   |    / \\\n'+
-        '   |\n'+
-        '  / \\'+
-        '\n\n';
-    const hangman = document.createElement('pre');
-    hangman.setAttribute('id','hangman'); 
-    hangman.textContent = hangmanArt;
-    //hangman.style.display= 'flex';
-    gameboard.appendChild(hangman);
-    //placeholder
+    hard.style.border=null; 
+    generateBoard();
+    //generate an easy word
     const word = generateWord('easy');
-    var spaces = '';
-    for(var i=0;i<word.length;i++)
-    {
-        spaces += '__ ';
-    }
-    const secret = document.createElement('pre');
-    secret.setAttribute('id','secret'); 
-    secret.textContent = spaces;
-    //secret.style.display= 'flex';
-    gameboard.appendChild(secret); 
-}
+    //pass word to generate secret 
+    generateSecret(word);
+    //play game
+};
+
+
 function hardRound(){
     //clear board
     while (container.firstChild) {
@@ -229,6 +210,7 @@ function play(word, spaces){
 }
 
 
-
+easy.addEventListener('click',easyRound); 
+hard.addEventListener('click',hardRound);
 
 
