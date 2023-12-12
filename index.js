@@ -20,7 +20,7 @@ const generateWord = function(difficulty){
     }
 };
 //generate board
-const generateBoard = function(){
+const generateBoard = function(word){
     const gameboard = document.createElement('div');
     const secretContainer = document.createElement('div'); 
     const exit = document.createElement('div');
@@ -49,9 +49,10 @@ const generateBoard = function(){
     gameboard.appendChild(exit);
     //container.appendChild(secretContainer);
     //exit.addEventListener('click',clearBoard);
-    generateAlphabetButtons(alphabetContainer); 
     gameboard.appendChild(alphabetContainer);
     gameboard.appendChild(secretContainer);
+    generateSecret(word);
+    generateAlphabetButtons(alphabetContainer,word); 
 };
 //generate secret 
 const generateSecret = function(word){
@@ -99,11 +100,9 @@ const easyRound = function(){
     //set indicator for user selection as a border
     easy.style.border = '2px solid black';
     hard.style.border=null; 
-    generateBoard();
     //generate an easy word
     const word = generateWord('easy');
-    //pass word to generate secret 
-    generateSecret(word);
+    generateBoard(word);
     //play game
 };
 function hardRound(){
@@ -114,11 +113,9 @@ function hardRound(){
     //set indicator for user selection as a border
     hard.style.border = '2px solid black';
     easy.style.border=null; 
-    generateBoard();
     //generate an easy word
     const word = generateWord('hard');
-    //pass word to generate secret 
-    generateSecret(word);
+    generateBoard(word);
     //play game
 }
 function clearBoard(){
@@ -129,15 +126,29 @@ function clearBoard(){
     //createBoard(); 
 }
 
-function generateAlphabetButtons(alphabetContainer) {
+function generateAlphabetButtons(alphabetContainer,word) {
     for (let i = 65; i <= 90; i++) { 
       const letter = String.fromCharCode(i);
       const button = document.createElement("button");
       button.textContent = letter;
-      button.addEventListener("click", () => makeGuess(letter));
+      button.addEventListener("click", () => makeGuess(letter,word));
       alphabetContainer.appendChild(button);
     }
   }
+
+//need to pass as arguments the word, the letter, and the div bc they're not in scope 
+//the div exists in the scope of the generateSecret function
+function makeGuess(letter,word) {
+    //scan the word, check if the selected letter is in the word
+    for(let i = 0; i < word.length(); i++) {
+        //conditional
+        if(letter == word.charAt(i)) {
+            //replace the div content with the selected letter
+
+        }
+    }
+}
+
 
 
 easy.addEventListener('click',easyRound); 
