@@ -54,6 +54,7 @@
 }
 #secretContainer{
     display:flex;
+    padding: 50px;
 }
 #boardContainer #gameboard{
     display:flex; 
@@ -90,3 +91,10 @@
     font-size: 40px; 
     width: 50px; 
 }
+#secret {
+    background-color: #eee;
+    height: 5px;
+    width: 5px;
+    padding: 5px;
+    flex-direction: row;
+  }
