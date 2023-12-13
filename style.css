@@ -57,6 +57,7 @@
     padding: 50px;
 }
 #boardContainer #gameboard{
+    background-color: #87CEEB;
     display:flex; 
     border:2px solid black; 
     position:relative; 

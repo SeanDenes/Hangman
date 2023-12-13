@@ -17,7 +17,7 @@ const generateWord = function(difficulty){
         const indexHard = Math.floor(Math.random() * 10);
         const wordhard = wordsHard[indexHard]; 
         wordsHard.splice(indexHard,1); 
-        console.log(word);
+        console.log(wordhard);
         return wordhard; 
     }
 };
@@ -62,34 +62,29 @@ const generateSecret = function(word){
         let char = word.charAt(i);
         if(char !== ' '){
             const secret = document.createElement('div');
-            //secret.setAttribute('id','secret');
-            //secret.style.display = 'flex';
             secret.style.backgroundColor= '#eee';
             secret.style.height='15px';
             secret.style.width='15px';
             secret.style.padding='5px';
-            secret.style.flexDirection='row';
+            secret.style.display = 'inline-block';
             secretContainer.appendChild(secret);
             const space = document.createElement('div');
-            //secret.setAttribute('id','secret');
-            //secret.style.display = 'flex';
-            space.style.backgroundColor= '#fff';
+            space.style.backgroundColor= '#87CEEB';
             space.style.height='3px';
             space.style.width='3px';
             space.style.padding='5px';
-            space.style.flexDirection='row';
+            space.style.display = 'inline-block';
             secretContainer.appendChild(space);
         }
         else
         {
+            //spaces in between words in a phrase
             const secret = document.createElement('div');
-            //secret.setAttribute('id','secret');
-            //secret.style.display = 'flex';
-            secret.style.backgroundColor= '#fff';
+            secret.style.backgroundColor= '#87CEEB';
             secret.style.height='15px';
             secret.style.width='8px';
             secret.style.padding='15px';
-            secret.style.flexDirection='row';
+            secret.style.display = 'inline-block';
             secretContainer.appendChild(secret);
         }
     }
@@ -163,40 +158,41 @@ function updateSecret(word, currentChar) {
             secret.style.height='15px';
             secret.style.width='15px';
             secret.style.padding='5px';
-            secret.style.flexDirection='row';
+            secret.style.display = 'inline-block';
             secretContainer.appendChild(secret);
             //spaces in between
             const space = document.createElement('div');
-            space.style.backgroundColor= '#fff';
+            space.style.backgroundColor= '#87CEEB';
             space.style.height='3px';
             space.style.width='3px';
             space.style.padding='5px';
-            space.style.flexDirection='row';
+            space.style.display = 'inline-block';
             secretContainer.appendChild(space);
         }else if(char !== ' ' && char == currentChar){
             const letterDiv = document.createElement('div');
             letterDiv.textContent = currentChar.toUpperCase();
             letterDiv.style.backgroundColor = '#fff';
-            letterDiv.style.height = '15px';  // Adjust the height to your preference
-            letterDiv.style.width = '15px';   // Adjust the width to your preference
+            letterDiv.style.height = '15px';  
+            letterDiv.style.width = '15px';   
             letterDiv.style.padding = '5px';
-            letterDiv.style.display = 'inline-block';  // Make the div inline-block for better spacing
+            letterDiv.style.display = 'inline-block';  
             secretContainer.appendChild(letterDiv);
-            
             // Spaces in between
             const space = document.createElement('div');
-            space.style.display = 'inline-block';  // Make the div inline-block for better spacing
-            space.style.width = '5px';   // Adjust the width to your preference
+            space.style.display = 'inline-block';  
+            space.style.height='3px';
+            space.style.width='3px';
+            space.style.padding='5px'; 
             secretContainer.appendChild(space);
 
         }else{
             //spaces in between words in a phrase
             const secret = document.createElement('div');
-            secret.style.backgroundColor= '#fff';
+            secret.style.backgroundColor= '#87CEEB';
             secret.style.height='15px';
             secret.style.width='8px';
             secret.style.padding='15px';
-            secret.style.flexDirection='row';
+            secret.style.display = 'inline-block';
             secretContainer.appendChild(secret);
         }
     }
