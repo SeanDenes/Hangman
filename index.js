@@ -9,13 +9,15 @@ const generateWord = function(difficulty){
         const wordsEasy = ['ant','apple','banana','boom','car','cap','deer','eagle','fox','gorilla']
         const index = Math.floor(Math.random() * 10);
         const word = wordsEasy[index]; 
-        wordsEasy.splice(index,1); 
+        wordsEasy.splice(index,1);
+        console.log(word);
         return word; 
     }else{
         const wordsHard = ['tell a tale','lost and found','easy does it','spectacular','lacrosse','premium','fracture','jingle bell','phoenix','rye']
         const indexHard = Math.floor(Math.random() * 10);
         const wordhard = wordsHard[indexHard]; 
         wordsHard.splice(indexHard,1); 
+        console.log(word);
         return wordhard; 
     }
 };
@@ -123,34 +125,82 @@ function clearBoard(){
     gameboard.remove();
     easy.style.border=null;
     hard.style.border=null;
-    //createBoard(); 
 }
 
 function generateAlphabetButtons(alphabetContainer,word) {
     for (let i = 65; i <= 90; i++) { 
-      const letter = String.fromCharCode(i);
+      const uppercaseLetter = String.fromCharCode(i);
       const button = document.createElement("button");
-      button.textContent = letter;
+      button.textContent = uppercaseLetter;
+      const letter = uppercaseLetter.toLowerCase()
       button.addEventListener("click", () => makeGuess(letter,word));
       alphabetContainer.appendChild(button);
     }
-  }
-
-//need to pass as arguments the word, the letter, and the div bc they're not in scope 
-//the div exists in the scope of the generateSecret function
-function makeGuess(letter,word) {
+}
+function makeGuess(letter, word) {
+    console.log("makeGuess called");
+    console.log(letter);
     //scan the word, check if the selected letter is in the word
-    for(let i = 0; i < word.length(); i++) {
-        //conditional
-        if(letter == word.charAt(i)) {
+    for(let i = 0; i < word.length; i++) {
+        let currentChar = word.charAt(i)
+        if(letter == currentChar) {
             //replace the div content with the selected letter
-
+            secretContainer.innerHTML = ''; //delete children of secretContainer
+            updateSecret(word, currentChar)
+            //exit the loop to make sure updateSecret is only called 1 time 
+            break;
         }
     }
 }
+function updateSecret(word, currentChar) {
+    console.log("update secret called");
+    for(var i = 0; i < word.length; i++){
+        let char = word.charAt(i);
+        if(char !== ' ' && char !== currentChar) {
+            //grey boxes
+            const secret = document.createElement('div');
+            secret.style.backgroundColor= '#eee';
+            secret.style.height='15px';
+            secret.style.width='15px';
+            secret.style.padding='5px';
+            secret.style.flexDirection='row';
+            secretContainer.appendChild(secret);
+            //spaces in between
+            const space = document.createElement('div');
+            space.style.backgroundColor= '#fff';
+            space.style.height='3px';
+            space.style.width='3px';
+            space.style.padding='5px';
+            space.style.flexDirection='row';
+            secretContainer.appendChild(space);
+        }else if(char !== ' ' && char == currentChar){
+            const letterDiv = document.createElement('div');
+            letterDiv.textContent = currentChar.toUpperCase();
+            letterDiv.style.backgroundColor = '#fff';
+            letterDiv.style.height = '15px';  // Adjust the height to your preference
+            letterDiv.style.width = '15px';   // Adjust the width to your preference
+            letterDiv.style.padding = '5px';
+            letterDiv.style.display = 'inline-block';  // Make the div inline-block for better spacing
+            secretContainer.appendChild(letterDiv);
+            
+            // Spaces in between
+            const space = document.createElement('div');
+            space.style.display = 'inline-block';  // Make the div inline-block for better spacing
+            space.style.width = '5px';   // Adjust the width to your preference
+            secretContainer.appendChild(space);
 
-
-
+        }else{
+            //spaces in between words in a phrase
+            const secret = document.createElement('div');
+            secret.style.backgroundColor= '#fff';
+            secret.style.height='15px';
+            secret.style.width='8px';
+            secret.style.padding='15px';
+            secret.style.flexDirection='row';
+            secretContainer.appendChild(secret);
+        }
+    }
+}
 easy.addEventListener('click',easyRound); 
 hard.addEventListener('click',hardRound);
 
