@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hangman</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    <div id="title">
+        This is a hangman game. 
+    </div>
+    <div id="usernameEntry">
+        <label for="usernameInput">Enter Your Username:</label>
+        <input type="text" id="usernameInput" name="usernameInput">
+        <button id="startGameBtn">Start Game</button>
+    </div>
+    <div id="difficulty"  style="display: none;">
+        <h1>Choose your difficulty, <span id ="username"></span>.</h1>
+        <div id="buttonEasy"><span>EASY</span></div>
+        <div id = "space"></div>
+        <div id="buttonHard"><span>HARD</span></div>
+    </div>
+    <div id = "boardContainer"></div>
+    </body>
+    <script src="index.js"></script>
+</html>
